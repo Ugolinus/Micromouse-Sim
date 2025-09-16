@@ -32,8 +32,28 @@ public:
 
 	int numberOfFieldsSQR;
 	int sizeGameField;
-	int sizeQuadrant;
+	float sizeQuadrant;
 
 	void draw();
 
+};
+
+class Mouse {
+public:
+	vector<int> myLabyrinth;
+	Color col;
+	int pos;
+	Vector3 posOnScreen;
+
+	Mouse(Color col, int numberOfFieldsSQR, int sizeGameField,float sizeQuadrant);
+
+	int mouseBrain();
+
+	int numberOfFieldsSQR;
+	int sizeGameField;
+	float sizeQuadrant;
+	vector<int> getSensorData();
+	void makeMove(int direction);
+
+	void draw();
 };

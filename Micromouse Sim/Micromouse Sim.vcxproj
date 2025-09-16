@@ -124,6 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Labyrinth.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

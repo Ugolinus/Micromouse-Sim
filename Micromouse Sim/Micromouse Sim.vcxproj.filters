@@ -24,6 +24,9 @@
     <ClCompile Include="Labyrinth.cpp">
       <Filter>Ressourcendateien</Filter>
     </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">
