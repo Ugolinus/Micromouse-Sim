@@ -2,20 +2,33 @@
 
 int main() {
 
-	InitWindow(1500, 1500, "Micromouse Simulator");
+	InitWindow(1500, 1000, "Micromouse Simulator");
 	Cam myCamera;
 
 	SetTargetFPS(60);
 
 
-	Labyrinth myLaby(50);
-	Mouse myMouse(RED,myLaby.numberOfFieldsSQR,myLaby.sizeGameField,myLaby.sizeQuadrant);
+	Labyrinth myLaby(30);
+	Mouse myMouse(PINK,myLaby.numberOfFieldsSQR,myLaby.sizeGameField,myLaby.sizeQuadrant,myLaby.myLabyrinth);
+
+
+	//Zeit controll
+	float interval = 0.5f;
+	float lastCall = 0.0;
 
 	while (!WindowShouldClose()) {
 
 		//Update
 		myCamera.update();
-		myMouse.pos = 1;
+		float t = GetTime();
+
+		if (t - lastCall >= interval) {
+			while (!myMouse.makeMove(myMouse.mouseBrain())) {
+			};
+			lastCall = t;
+		}
+		
+
 
 
 		BeginDrawing();

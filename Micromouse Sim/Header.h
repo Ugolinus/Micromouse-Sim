@@ -3,6 +3,7 @@
 #include<raylib.h>
 #include<raymath.h>
 #include<vector>
+#include<iostream>
 
 using namespace std;
 
@@ -40,12 +41,13 @@ public:
 
 class Mouse {
 public:
-	vector<int> myLabyrinth;
+	vector<bool> myLabyrinth;
 	Color col;
 	int pos;
 	Vector3 posOnScreen;
-
-	Mouse(Color col, int numberOfFieldsSQR, int sizeGameField,float sizeQuadrant);
+	Vector3 posVec;
+	Vector3 nowPos;
+	Mouse(Color col, int numberOfFieldsSQR, int sizeGameField,float sizeQuadrant, vector<bool> myLabyrinth);
 
 	int mouseBrain();
 
@@ -53,7 +55,7 @@ public:
 	int sizeGameField;
 	float sizeQuadrant;
 	vector<int> getSensorData();
-	void makeMove(int direction);
+	bool makeMove(int direction);
 
 	void draw();
 };
