@@ -13,7 +13,7 @@ Cam::Cam() {
 		25.0f,
 		//
 		CAMERA_PERSPECTIVE };
-	this->R = 150.0f;
+	this->R = 100.0f;
 
 	this->pitch = 0.8f, yaw = 0.0f;
 
