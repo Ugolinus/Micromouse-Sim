@@ -123,14 +123,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AGVBrain.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Header.cpp" />
-    <ClCompile Include="mouse.cpp" />
+    <ClCompile Include="AGV.cpp" />
     <ClCompile Include="Labyrinth.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Run.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AGV.h" />
+    <ClInclude Include="AGVBrain.h" />
+    <ClInclude Include="Cam.h" />
     <ClInclude Include="Header.h" />
+    <ClInclude Include="Labyrinth.h" />
+    <ClInclude Include="Run.h" />
+    <ClInclude Include="Simulation.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="min_light.fs" />

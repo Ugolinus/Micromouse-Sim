@@ -1,5 +1,5 @@
 #include "Header.h"
-
+#include"Labyrinth.h"
 Labyrinth::Labyrinth(int size, Shader& sh)
 {
 
@@ -55,6 +55,9 @@ Labyrinth::Labyrinth(int size, Shader& sh)
 	ball.materials[0].maps[MATERIAL_MAP_ALBEDO].texture = ball_tex;
 	ball.materials[0].shader = sh;
 	UnloadImage(img_ball);
+
+	//Gehirn Map
+	p_brainLabyrinth = 0;
 }
 
 void Labyrinth::unload()
@@ -84,7 +87,7 @@ void Labyrinth::draw(Shader& sh)
 	
 	for (int i = 0; i < myLabyrinth.size(); i++) {
 
-		if (myLabyrinth[i]) {
+		if (myLabyrinth[i]&&(*p_brainLabyrinth)[i]) {
 
 			pos.x = (- numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant  + sizeQuadrant * (i%numberOfFieldsSQR);
 			pos.z = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (i / numberOfFieldsSQR);

@@ -1,7 +1,7 @@
-#include "Header.h"
+#include "AGV.h"
 
 
-Mouse::Mouse(Color col, int numberOfFieldsSQR, int sizeGameField, float sizeQuadrant, vector<bool> myLabyrinth, Shader& sh)
+AGV::AGV(Color col, int numberOfFieldsSQR, int sizeGameField, float sizeQuadrant, vector<bool> myLabyrinth, Shader& sh)
 {
     this->col = col;
     this->numberOfFieldsSQR = numberOfFieldsSQR;
@@ -32,7 +32,7 @@ Mouse::Mouse(Color col, int numberOfFieldsSQR, int sizeGameField, float sizeQuad
 
 }
 
-Direction Mouse::mouseBrain()
+Direction AGV::AGVBrain()
 {
     Direction direction;
 
@@ -42,12 +42,12 @@ Direction Mouse::mouseBrain()
  
 }
 
-vector<int> Mouse::getSensorData()
+vector<int>AGV::getSensorData()
 {
     return vector<int>();
 }
 
-bool Mouse::makeMove(Direction dir)
+bool AGV::makeMove(Direction dir)
 {
     int posOld = pos;
     int row = pos / numberOfFieldsSQR;
@@ -118,7 +118,7 @@ bool Mouse::makeMove(Direction dir)
 
 }
 
-void Mouse::draw(Shader& sh)
+void AGV::draw(Shader& sh)
 {
     //Soll Position wird gesetzt
     posVec = { 0,sizeQuadrant / 2.0f,0 };
@@ -132,9 +132,8 @@ void Mouse::draw(Shader& sh)
     DrawModel(model, nowPos, 1.0f, RAYWHITE);
 }
 
-void update() {};
 
-void Mouse::unload()
+void AGV::unload()
 {
     UnloadModel(model);
     UnloadTexture(tex);

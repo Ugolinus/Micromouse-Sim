@@ -18,21 +18,45 @@
     <ClCompile Include="main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Ressourcendateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Labyrinth.cpp">
-      <Filter>Ressourcendateien</Filter>
-    </ClCompile>
-    <ClCompile Include="mouse.cpp">
+    <ClCompile Include="AGV.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Header.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Run.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Labyrinth.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="AGVBrain.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="AGVBrain.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Run.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Cam.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Labyrinth.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="AGV.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulation.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

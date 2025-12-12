@@ -1,5 +1,5 @@
 #include"Header.h"
-
+#include"Cam.h"
 
 Cam::Cam() {
 	this->myCam = {
