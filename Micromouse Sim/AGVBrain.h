@@ -4,12 +4,12 @@
 class AGVBrain {
 
 public:
-	AGVBrain(vector<bool>  brainLabyrinth) {
+	AGVBrain(vector<Objek>  brainLabyrinth) {
 		this->brainLabyrinth = brainLabyrinth;
 	}
 	Direction makeMove();
 	vector<bool> sensorInformation;
-	vector<bool> brainLabyrinth;
+	vector<Objek> brainLabyrinth;
 private:
 	
 

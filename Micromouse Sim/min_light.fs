@@ -10,7 +10,7 @@ uniform vec4  colDiffuse;
 uniform vec3  uLightPos;
 uniform vec3  uViewPos;
 
-uniform float uRangeScale;   // NEU: >1.0 = kürzere Reichweite, <1.0 = längere (Default 1.0)
+uniform float uRangeScale;   //>1.0 = kürzere Reichweite, <1.0 = längere (Default 1.0)
 
 out vec4 finalColor;
 
@@ -23,7 +23,7 @@ void main() {
     float ambient = 0.5;
     float diff    = max(dot(N, L), 0.0);
 
-    // NEU: Distanz skalieren
+    // Distanz skalieren
     float d   = length(uLightPos - vWorldPos) * uRangeScale;
     float att = 1.0 / (1.0 + 0.09*d + 0.032*d*d);
 

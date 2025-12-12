@@ -17,5 +17,12 @@ enum Direction {
 	LEFT = -2   
 };
 
+enum Objek {
+	BLOCK = 0,
+	GOAL = 3,
+	SUBGOAL = 2,
+	FREE = 1
+};
+
 void startRaylib();
 

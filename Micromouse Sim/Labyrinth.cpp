@@ -86,13 +86,13 @@ void Labyrinth::draw(Shader& sh)
 	Vector3 pos = { -sizeQuadrant / 2.0f,sizeQuadrant/4.0f,-sizeQuadrant / 2.0f };
 	
 	for (int i = 0; i < myLabyrinth.size(); i++) {
-
-		if (myLabyrinth[i]&&(*p_brainLabyrinth)[i]) {
+		if (myLabyrinth[i]) {
+		//if (myLabyrinth[i]&&(*p_brainLabyrinth)[i]) {
 
 			pos.x = (- numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant  + sizeQuadrant * (i%numberOfFieldsSQR);
 			pos.z = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (i / numberOfFieldsSQR);
 
-			DrawModel(this->model, pos, 1, WHITE);
+			DrawModel(this->model, pos, 1, {255,255,255,40});
 			//DrawCube(pos, sizeQuadrant, sizeQuadrant/2.0f, sizeQuadrant, DARKGRAY);
 			//Oben
 			//DrawPlane({ pos.x,pos.y+ sizeQuadrant / 4.0f,pos.z }, { sizeQuadrant,sizeQuadrant }, WHITE);
