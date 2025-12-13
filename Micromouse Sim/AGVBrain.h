@@ -4,15 +4,27 @@
 class AGVBrain {
 
 public:
-	AGVBrain(vector<Objek>  brainLabyrinth) {
+	AGVBrain(vector<Objekt>&  brainLabyrinth, int startPos, Direction orientation) {
 		this->brainLabyrinth = brainLabyrinth;
+		this->orientation = orientation;
+		this->pos = startPos;
 	}
+
 	Direction makeMove();
+	
+	//Up Rechts Links
 	vector<bool> sensorInformation;
-	vector<Objek> brainLabyrinth;
+	vector<Objekt> brainLabyrinth;
 private:
 	
+	void translateSensoryDataIntoMap();
 
+	void handleOrientation(Direction newMove);
+
+	Direction calculateMove();
+
+	Direction orientation;
+	int pos;
 
 
 };

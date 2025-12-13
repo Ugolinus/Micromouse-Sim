@@ -3,8 +3,8 @@
 
 class Labyrinth {
 public:
-	vector<bool> myLabyrinth;
-	vector<bool>* p_brainLabyrinth;
+	vector<Objekt> myLabyrinth;
+	vector<Objekt>* p_brainLabyrinth;
 	Labyrinth(int size, Shader& sh);
 
 	int numberOfFieldsSQR;

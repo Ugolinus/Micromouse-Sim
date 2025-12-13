@@ -3,7 +3,7 @@
 
 class AGV {
 public:
-	vector<bool> myLabyrinth;
+	vector<Objekt> myLabyrinth;
 	Color col;
 	int pos;
 
@@ -12,14 +12,14 @@ public:
 	Vector3 posOnScreen;
 	Vector3 posVec;
 	Vector3 nowPos;
-	AGV(Color col, int numberOfFieldsSQR, int sizeGameField, float sizeQuadrant, vector<bool> myLabyrinth, Shader& sh);
+	AGV(Color col, int numberOfFieldsSQR, int sizeGameField, float sizeQuadrant, vector<Objekt>& myLabyrinth, Shader& sh);
 
 	Direction AGVBrain();
 
 	int numberOfFieldsSQR;
 	int sizeGameField;
 	float sizeQuadrant;
-	vector<int> getSensorData();
+	vector<bool> getSensorData();
 	bool makeMove(Direction direction);
 
 	Model model;

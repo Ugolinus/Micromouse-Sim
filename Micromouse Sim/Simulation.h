@@ -12,7 +12,7 @@ class Simulation {
 public:
 	Simulation() : sh(LoadShader("min_light.vs", "min_light.fs"))
 		, labyrinth(30, sh)
-		, brain(vector<bool>(labyrinth.myLabyrinth.size(), false))
+		, brain(map,1,DOWN)
 		, mouse(PINK, labyrinth.numberOfFieldsSQR, labyrinth.sizeGameField,
 			labyrinth.sizeQuadrant, labyrinth.myLabyrinth, sh) {
 
@@ -45,9 +45,15 @@ public:
 			runs.push_back(Run(i,100.0f,500.0f*i,300.0f,300.0f,3,&arial));
 		}
 
-		//Labyrinth bekommt Gehirn Map
-		labyrinth.p_brainLabyrinth = &brain.brainLabyrinth;
+		//Labyrinth bekommt Gehirn Map, startet mit Free
 
+		for (int i = 0; i < labyrinth.myLabyrinth.size(); i++) {
+			map.push_back(FREE);
+		}
+
+		this->brain=AGVBrain(map, 1, DOWN);
+		labyrinth.p_brainLabyrinth = &brain.brainLabyrinth;
+	
 	}
 
 
@@ -80,6 +86,7 @@ public:
 			if (runs[i].running) {
 				if (runs[i].stepsLeft == runs[i].stepsAllowed) {
 					mouse.pos = 1;
+					mouse.orientation = DOWN;
 				}
 				//Zeitsteuerung
 				float t = GetTime();
@@ -87,11 +94,13 @@ public:
 
 
 				if (t - lastCall >= interval) {
-					while (!mouse.makeMove(mouse.AGVBrain())) {
+					while (!mouse.makeMove(brain.makeMove())) {
 						
 					}
 					for (int i = 0; i < runs.size(); i++) {
 						if (runs[i].running) {
+							//Brain gets new sensor Data
+							brain.sensorInformation = mouse.getSensorData();
 							runs[i].update();
 							break;
 						}
@@ -112,8 +121,9 @@ public:
 
 		ClearBackground(WHITE);
 
-		labyrinth.draw(sh);
 		mouse.draw(sh);
+		labyrinth.draw(sh);
+		
 
 		EndMode3D();
 
@@ -140,6 +150,8 @@ public:
 		for (int i = 0; i < runs.size(); i++) {
 			runs[i].draw();
 		}
+
+		//drawBrainInformation();
 
 		EndDrawing();
 	}
@@ -220,6 +232,26 @@ private:
 	vector<Run> runs;
 	AGVBrain brain;
 
+	vector<Objekt> map;
+
+
+	void drawBrainInformation() {
+
+		Vector2 pos = { WIDTH - 3.5 * OFFSET ,OFFSET / 2.0f };
+
+		DrawRectangle(pos.x, pos.y , 3 * OFFSET, 4 * OFFSET, DARKGRAY);
+		DrawRectangle(pos.x+3, pos.y+3, 3 * OFFSET-6, 4 * OFFSET-6, WHITE);
+
+		printArialText("Sensor Data: ", { pos.x + 10,pos.y + 10 }, 1.1);
+
+
+	}
+
+	void printArialText(string text, Vector2 pos, float size) {
+
+		DrawTextEx(arial, text.c_str(), pos, (FONTSIZE / 2.0f)* size, 3, BLACK);
+
+	}
 
 
 };

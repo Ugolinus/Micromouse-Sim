@@ -5,7 +5,7 @@ Labyrinth::Labyrinth(int size, Shader& sh)
 
 	this->sizeGameField = size;
 
-	myLabyrinth = {
+	/*myLabyrinth = {
 
 	1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 	1,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1,
@@ -23,7 +23,36 @@ Labyrinth::Labyrinth(int size, Shader& sh)
 	1,0,0,0,0,1,1,0,1,0,1,0,1,1,0,1,
 	1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,
 	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+	};*/
+
+
+	vector<int> raw = {
+	0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0,
+	1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0,
+	0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0,
+	0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0,
+	0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0,
+	0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
+	0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0,
+	0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0,
+	0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0,
+	0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0,
+	0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+	0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0,
+	0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0,
+	0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 	};
+
+	
+	for (int v : raw) {
+		this->myLabyrinth.push_back(static_cast<Objekt>(v));
+	}
+
+
+
+
 	this->numberOfFieldsSQR = sqrt(myLabyrinth.size());
 	this->sizeQuadrant= (float)sizeGameField / numberOfFieldsSQR;
 
@@ -85,20 +114,30 @@ void Labyrinth::draw(Shader& sh)
 
 	Vector3 pos = { -sizeQuadrant / 2.0f,sizeQuadrant/4.0f,-sizeQuadrant / 2.0f };
 	
+	//Undurchsichtige Objekte zeichnen
 	for (int i = 0; i < myLabyrinth.size(); i++) {
-		if (myLabyrinth[i]) {
-		//if (myLabyrinth[i]&&(*p_brainLabyrinth)[i]) {
+		if (myLabyrinth[i] == BLOCK && (*p_brainLabyrinth)[i] == BLOCK) {
 
-			pos.x = (- numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant  + sizeQuadrant * (i%numberOfFieldsSQR);
+
+			pos.x = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (i % numberOfFieldsSQR);
 			pos.z = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (i / numberOfFieldsSQR);
 
-			DrawModel(this->model, pos, 1, {255,255,255,40});
-			//DrawCube(pos, sizeQuadrant, sizeQuadrant/2.0f, sizeQuadrant, DARKGRAY);
-			//Oben
-			//DrawPlane({ pos.x,pos.y+ sizeQuadrant / 4.0f,pos.z }, { sizeQuadrant,sizeQuadrant }, WHITE);
+			
+				DrawModel(this->model, pos, 1, { 255,255,255,255 });
+			
 		}
 	}
+	//Durchsichtige Objekte zeichnen
+	for (int i = 0; i < myLabyrinth.size(); i++) {
+		if (myLabyrinth[i] == BLOCK && !(*p_brainLabyrinth)[i] == BLOCK) {
 
+
+			pos.x = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (i % numberOfFieldsSQR);
+			pos.z = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (i / numberOfFieldsSQR);
+
+			DrawModel(this->model, pos, 1, { 255,255,255,40 });
+		}
+	}
 
 
 

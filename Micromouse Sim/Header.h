@@ -17,7 +17,7 @@ enum Direction {
 	LEFT = -2   
 };
 
-enum Objek {
+enum Objekt {
 	BLOCK = 0,
 	GOAL = 3,
 	SUBGOAL = 2,

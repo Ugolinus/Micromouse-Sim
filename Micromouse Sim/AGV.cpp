@@ -1,7 +1,7 @@
 #include "AGV.h"
 
 
-AGV::AGV(Color col, int numberOfFieldsSQR, int sizeGameField, float sizeQuadrant, vector<bool> myLabyrinth, Shader& sh)
+AGV::AGV(Color col, int numberOfFieldsSQR, int sizeGameField, float sizeQuadrant, vector<Objekt>& myLabyrinth, Shader& sh)
 {
     this->col = col;
     this->numberOfFieldsSQR = numberOfFieldsSQR;
@@ -42,9 +42,49 @@ Direction AGV::AGVBrain()
  
 }
 
-vector<int>AGV::getSensorData()
+vector<bool>AGV::getSensorData()
 {
-    return vector<int>();
+    vector<bool> sensoryData = { 0,0,0 };
+
+    int indexUp = pos + numberOfFieldsSQR;
+    int indexRight = pos + 1;
+    int indexLeft = pos - 1;
+
+
+
+
+    if (orientation == UP) {
+         indexUp = pos + numberOfFieldsSQR;
+         indexRight = pos + 1;
+         indexLeft = pos - 1;
+    }
+    else if (orientation == DOWN) {
+         indexUp = pos - numberOfFieldsSQR;
+         indexRight = pos - 1;
+         indexLeft = pos + 1;
+    }
+    else if (orientation == RIGHT) {
+        indexUp = pos + 1;
+        indexRight = pos - numberOfFieldsSQR;
+        indexLeft = pos + numberOfFieldsSQR;
+    }
+    else if (orientation == LEFT) {
+        indexUp = pos -1;
+        indexRight = pos + numberOfFieldsSQR;
+        indexLeft = pos - numberOfFieldsSQR;
+    }
+
+    if (indexUp >= 0 && indexUp < myLabyrinth.size())
+        sensoryData[0] = (myLabyrinth[indexUp] == BLOCK);
+    if (indexRight >= 0 && indexRight < myLabyrinth.size())
+        sensoryData[1] = (myLabyrinth[indexRight] == BLOCK);
+    if (indexLeft >= 0 && indexLeft < myLabyrinth.size())
+        sensoryData[2] = (myLabyrinth[indexLeft] == BLOCK);
+
+
+
+
+    return sensoryData;
 }
 
 bool AGV::makeMove(Direction dir)
@@ -75,7 +115,7 @@ bool AGV::makeMove(Direction dir)
 
     switch (dir) {
     case RIGHT: // rechts
-        if (col < numberOfFieldsSQR - 1&& !myLabyrinth[pos+1]) { // nicht am rechten Rand
+        if (col < numberOfFieldsSQR - 1&& (myLabyrinth)[pos+1]==FREE) { // nicht am rechten Rand
             pos++;
             orientation = RIGHT;
             return true;
@@ -83,7 +123,7 @@ bool AGV::makeMove(Direction dir)
         break;
 
     case LEFT: // links
-        if (col > 0 && !myLabyrinth[pos - 1]) { // nicht am linken Rand
+        if (col > 0 && (myLabyrinth)[pos - 1] == FREE) { // nicht am linken Rand
             pos--;
             orientation = LEFT;
             return true;
@@ -91,7 +131,7 @@ bool AGV::makeMove(Direction dir)
         break;
 
     case DOWN: // runter
-        if (row < numberOfFieldsSQR - 1 && !myLabyrinth[pos + numberOfFieldsSQR]) { // nicht in der letzten Reihe
+        if (row < numberOfFieldsSQR - 1 && (myLabyrinth)[pos + numberOfFieldsSQR] == FREE) { // nicht in der letzten Reihe
             pos += numberOfFieldsSQR;
             orientation = DOWN;
             return true;
@@ -99,7 +139,7 @@ bool AGV::makeMove(Direction dir)
         break;
 
     case UP: // hoch
-        if (row > 0 && !myLabyrinth[pos - numberOfFieldsSQR]) { // nicht in der ersten Reihe
+        if (row > 0 && (myLabyrinth)[pos - numberOfFieldsSQR] == FREE) { // nicht in der ersten Reihe
             pos -= numberOfFieldsSQR;
             orientation = UP;
             return true;
