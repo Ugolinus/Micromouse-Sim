@@ -165,8 +165,17 @@ void AGV::draw(Shader& sh)
     posVec.x = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (pos % numberOfFieldsSQR);
     posVec.z = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (pos / numberOfFieldsSQR);
 
-    nowPos.x += (posVec.x - nowPos.x)/30.0f;
-    nowPos.z += (posVec.z - nowPos.z)/30.0f;
+    if (pos == 0)
+        nowPos = posVec;
+        nowPos.x += (posVec.x - nowPos.x) / 30.0f;
+
+    if ((posVec.x - nowPos.x) * (posVec.x - nowPos.x) < 0.001)
+        nowPos.x = posVec.x;
+    
+        nowPos.z += (posVec.z - nowPos.z)/30.0f;
+
+   if ((posVec.z - nowPos.z) * (posVec.z - nowPos.z) < 0.001)
+        nowPos.z = posVec.z;
 
     //DrawSphere(nowPos, sizeQuadrant/2.5f, col);
     DrawModel(model, nowPos, 1.0f, RAYWHITE);

@@ -26,7 +26,7 @@ public:
 		lightPos = { 0.0f, 20.5f, 0.0f };
 
 		//Zeit Kontrolle
-		interval = 1.0f;
+		interval = 0.0f;
 		lastCall = 0.0;
 
 		//Laden von Assets
@@ -93,7 +93,8 @@ public:
 
 
 
-				if (t - lastCall >= interval) {
+				if (t - lastCall >= interval&& (mouse.nowPos.x== mouse.posVec.x) && (mouse.nowPos.z == mouse.posVec.z)) {
+					
 					while (!mouse.makeMove(brain.makeMove())) {
 						
 					}
