@@ -8,23 +8,35 @@ public:
 		this->brainLabyrinth = brainLabyrinth;
 		this->orientation = orientation;
 		this->pos = startPos;
+
+		getDimensions();
 	}
 
 	Direction makeMove();
 	
 	//Up Rechts Links
 	vector<bool> sensorInformation;
+	
 	vector<Objekt> brainLabyrinth;
+
+	int pos;
+	Direction orientation;
 private:
 	
 	void translateSensoryDataIntoMap();
 
-	void handleOrientation(Direction newMove);
+	Direction localToGlobal(Direction newMove);
 
 	Direction calculateMove();
 
-	Direction orientation;
-	int pos;
+	void getDimensions();
 
+	
+	
 
+	int size;
+
+	bool sensorUp, sensorRight, sensorLeft;
+
+	Direction globalToLocal(Direction dir);
 };

@@ -38,13 +38,13 @@ void Run::draw()
 {
 	DrawCircle((box.x + box.width * 0.5f),
 		(box.y + box.height * 0.5f),
-		box.width *0.8,
+		box.width *0.9,
 		BLACK);
 
 	// innerer Kreis (etwas kleiner)
 	DrawCircle((box.x + box.width * 0.5f),
 		(box.y + box.height * 0.5f),
-		box.width * 0.8 - 4.0f,
+		box.width * 0.9 - 4.0f,
 		{255,255,255,255});
 	string counterSteps = to_string(stepsLeft);
 	string counterStepsAllowed = to_string(stepsAllowed);
@@ -199,6 +199,7 @@ void Run::reset()
 	deliveredPackage = false;
 	gotPackage = false;
 }
+
 
 
 

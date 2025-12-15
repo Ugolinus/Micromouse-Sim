@@ -62,6 +62,16 @@ Labyrinth::Labyrinth(int size, Shader& sh)
 		this->myLabyrinth.push_back(static_cast<Objekt>(v));
 	}
 
+	for (int i = 0; i < myLabyrinth.size(); i++) {
+		brainLabyrinth.push_back(FREE);
+	}
+
+	for (int i = 0; i < myLabyrinth.size(); i++) {
+		if (myLabyrinth[i] == SUBGOAL)
+			brainLabyrinth[i] = SUBGOAL;
+		else if (myLabyrinth[i] == GOAL)
+			brainLabyrinth[i] = GOAL;
+	}
 
 
 
@@ -142,6 +152,9 @@ void Labyrinth::draw(Shader& sh)
 				DrawModel(this->model, pos, 1, { 255,255,255,255 });
 			
 		}
+		else if ((*p_brainLabyrinth)[i] == BLOCK&&!myLabyrinth[i] == BLOCK) {
+			DrawModel(this->model, pos, 1, RED);
+		}
 		else if (myLabyrinth[i] == SUBGOAL) {
 			if (!subGoalViseted)
 				DrawModel(ball, pos, 1.0f, YELLOW);
@@ -171,7 +184,7 @@ void Labyrinth::draw(Shader& sh)
 
 
 
-			DrawModel(this->model, pos, 1, { 255,255,255,40 });
+			DrawModel(this->model, pos, 1, { 255,255,255,10 });
 		}
 	}
 

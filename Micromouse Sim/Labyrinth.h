@@ -5,6 +5,7 @@ class Labyrinth {
 public:
 	vector<Objekt> myLabyrinth;
 	vector<Objekt>* p_brainLabyrinth;
+	vector<Objekt> brainLabyrinth;
 	Labyrinth(int size, Shader& sh);
 
 	int numberOfFieldsSQR;

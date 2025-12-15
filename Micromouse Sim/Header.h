@@ -9,6 +9,10 @@
 
 using namespace std;
 
+extern int HEIGHT;
+extern int WIDTH;
+extern int OFFSET;
+extern int FONTSIZE;
 
 enum Direction {
 	UP = 1,
@@ -34,7 +38,3 @@ struct Goal {
 
 };
 
-const int HEIGHT = 1000;
-const int WIDTH = HEIGHT*1.6;
-const int OFFSET = WIDTH/20;
-const int FONTSIZE = OFFSET/2.5;

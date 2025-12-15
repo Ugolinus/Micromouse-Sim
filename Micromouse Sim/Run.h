@@ -8,9 +8,9 @@ private:
 	
 	
 	
-	int trysLeft;
+	
+	
 	int trys;
-
 	
 
 	//Interface
@@ -24,6 +24,7 @@ private:
 
 
 public:
+	int trysLeft;
 	int stepsAllowed;
 	int stepsLeft;
 	bool running;
@@ -51,5 +52,6 @@ public:
 
 	int shortestPath;
 
+	
 
 };

@@ -35,7 +35,7 @@ AGV::AGV(Color col, int numberOfFieldsSQR, int sizeGameField, float sizeQuadrant
 Direction AGV::AGVBrain()
 {
     Direction direction;
-
+    
     direction = (Direction)GetRandomValue(-2, 2);
    cout <<"Student: "<< direction << endl;
    return direction;
@@ -46,7 +46,7 @@ vector<bool>AGV::getSensorData()
 {
     vector<bool> sensoryData = { 0,0,0 };
 
-    int indexUp = pos + numberOfFieldsSQR;
+    int indexUp = pos - numberOfFieldsSQR;
     int indexRight = pos + 1;
     int indexLeft = pos - 1;
 
@@ -54,24 +54,24 @@ vector<bool>AGV::getSensorData()
 
 
     if (orientation == UP) {
-         indexUp = pos + numberOfFieldsSQR;
+         indexUp = pos - numberOfFieldsSQR;
          indexRight = pos + 1;
          indexLeft = pos - 1;
     }
     else if (orientation == DOWN) {
-         indexUp = pos - numberOfFieldsSQR;
+         indexUp = pos + numberOfFieldsSQR;
          indexRight = pos - 1;
          indexLeft = pos + 1;
     }
     else if (orientation == RIGHT) {
         indexUp = pos + 1;
-        indexRight = pos - numberOfFieldsSQR;
-        indexLeft = pos + numberOfFieldsSQR;
+        indexRight = pos + numberOfFieldsSQR;
+        indexLeft = pos - numberOfFieldsSQR;
     }
     else if (orientation == LEFT) {
         indexUp = pos -1;
-        indexRight = pos + numberOfFieldsSQR;
-        indexLeft = pos - numberOfFieldsSQR;
+        indexRight = pos - numberOfFieldsSQR;
+        indexLeft = pos + numberOfFieldsSQR;
     }
 
     if (indexUp >= 0 && indexUp < myLabyrinth.size())
@@ -111,7 +111,7 @@ bool AGV::makeMove(Direction dir)
             dir = (Direction)((int)dir * -2);
     }
 
-    cout << "Orient: "<<orientation<<endl<<"Real: "<<dir << endl<<endl;
+   
 
     switch (dir) {
     case RIGHT: // rechts
@@ -149,12 +149,12 @@ bool AGV::makeMove(Direction dir)
 
     return false; // Bewegung nicht erlaubt
 
-    if (pos<0 || pos>numberOfFieldsSQR * numberOfFieldsSQR)
+    /*if (pos<0 || pos>numberOfFieldsSQR * numberOfFieldsSQR)
         pos = posOld;
 
     
 
-    return false;
+    return false;*/
 
 }
 

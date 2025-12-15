@@ -12,10 +12,10 @@ class Simulation {
 public:
 	Simulation() : sh(LoadShader("min_light.vs", "min_light.fs"))
 		, labyrinth(30, sh)
-		, brain(map,1,DOWN)
+		, brain(labyrinth.brainLabyrinth,1,DOWN)
 		, mouse(PINK, labyrinth.numberOfFieldsSQR, labyrinth.sizeGameField,
 			labyrinth.sizeQuadrant, labyrinth.myLabyrinth, sh)
-		, myRun(3, OFFSET, HEIGHT/2.0-150, HEIGHT/8,HEIGHT/8, labyrinth.myLabyrinth.size() / 3.0, &arial)
+		, myRun(3, OFFSET, HEIGHT/2.0-150, HEIGHT/8,HEIGHT/8, labyrinth.myLabyrinth.size() / 1.0, &arial)
 	{
 
 
@@ -42,12 +42,6 @@ public:
 
 
 		//Labyrinth bekommt Gehirn Map, startet mit Free
-
-		for (int i = 0; i < labyrinth.myLabyrinth.size(); i++) {
-			map.push_back(FREE);
-		}
-
-		this->brain=AGVBrain(map, 1, DOWN);
 		labyrinth.p_brainLabyrinth = &brain.brainLabyrinth;
 	
 	}
@@ -81,6 +75,13 @@ public:
 			if (myRun.stepsLeft == myRun.stepsAllowed) {
 				mouse.pos = 1;
 				mouse.orientation = DOWN;
+
+				brain.pos = 1;
+				brain.orientation = DOWN;
+
+				if (myRun.trysLeft == 3) {
+					brain.brainLabyrinth = labyrinth.brainLabyrinth;
+				}
 			}
 
 			if (myRun.running) {
@@ -88,17 +89,23 @@ public:
 				//Zeitsteuerung
 				float t = GetTime();
 
-
+				//Brain gets new sensor Data
+				brain.sensorInformation = mouse.getSensorData();
 
 				if (t - lastCall >= interval&& (mouse.nowPos.x== mouse.posVec.x) && (mouse.nowPos.z == mouse.posVec.z)) {
 					
+					//Zug wird gemacht
 					while (!mouse.makeMove(brain.makeMove())) {
 						
 					}
 					
+					cout << "\n------------------------\n\n";
+					cout << "Real pos: " << mouse.pos<<endl;
+					cout << "Brain pos: " << brain.pos<<endl<<endl;
+
+
 						if (myRun.running) {
-							//Brain gets new sensor Data
-							brain.sensorInformation = mouse.getSensorData();
+							
 
 							if (labyrinth.myLabyrinth[mouse.pos] == SUBGOAL) {
 								myRun.gotPackage = true;
