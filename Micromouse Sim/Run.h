@@ -17,6 +17,8 @@ private:
 	Color col;
 	Rectangle box;
 	Font* p_arial;
+	
+
 
 public:
 	int stepsAllowed;
@@ -32,5 +34,9 @@ public:
 
 	void update();
 
+	void drawStepsCounter();
+
+	void drawTextExCenteredInBox(const std::string& text, float fontSize, float spacing, Color col);
+	
 
 };

@@ -39,10 +39,10 @@ public:
 		SetTargetFPS(60);
 
 
-		//Knöpfe
+		//Runs
 
 		for (int i = 1; i < 4; i++) {
-			runs.push_back(Run(i,100.0f,500.0f*i,300.0f,300.0f,3,&arial));
+			runs.push_back(Run(i,100.0f,500.0f*i,300.0f,300.0f,labyrinth.myLabyrinth.size()/2.0, &arial));
 		}
 
 		//Labyrinth bekommt Gehirn Map, startet mit Free
@@ -71,11 +71,16 @@ public:
 
 
 		updateShaderAndCam();
+		bool noRunRunning = true;
+		for (int i = 0; i < runs.size(); i++) {
+			if (runs[i].running) {
+				noRunRunning = false;
+				break;
+			}
+		}
 
 		for (int i = 0; i < runs.size(); i++) {
-			if (runs[i].running)
-				break;
-			if (!runs[i].activated) {
+			if (!runs[i].activated&&noRunRunning) {
 				runs[i].isClicked();
 			}
 		}

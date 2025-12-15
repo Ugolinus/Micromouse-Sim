@@ -26,3 +26,10 @@ enum Objekt {
 
 void startRaylib();
 
+struct Goal {
+
+	bool mainGoal;
+	bool activated;
+	int pos;
+
+};

@@ -165,17 +165,32 @@ void AGV::draw(Shader& sh)
     posVec.x = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (pos % numberOfFieldsSQR);
     posVec.z = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (pos / numberOfFieldsSQR);
 
-    if (pos == 0)
-        nowPos = posVec;
-        nowPos.x += (posVec.x - nowPos.x) / 30.0f;
-
-    if ((posVec.x - nowPos.x) * (posVec.x - nowPos.x) < 0.001)
-        nowPos.x = posVec.x;
     
-        nowPos.z += (posVec.z - nowPos.z)/30.0f;
+    float dt = GetFrameTime();
+    float speed = 3.0f; // Einheiten pro Sekunde (anpassen)
 
-   if ((posVec.z - nowPos.z) * (posVec.z - nowPos.z) < 0.001)
-        nowPos.z = posVec.z;
+    // nur XZ bewegen
+    Vector3 target = posVec;
+    target.y = nowPos.y;
+
+    Vector3 delta = Vector3Subtract(target, nowPos);
+    float dist = Vector3Length(delta);
+
+    if (dist > 0.0001f)
+    {
+        float step = speed * dt;
+
+        if (step >= dist)
+        {
+            nowPos = target;
+        }
+        else
+        {
+            Vector3 dir = Vector3Scale(delta, 1.0f / dist);
+            nowPos = Vector3Add(nowPos, Vector3Scale(dir, step));
+        }
+    }
+
 
     //DrawSphere(nowPos, sizeQuadrant/2.5f, col);
     DrawModel(model, nowPos, 1.0f, RAYWHITE);
