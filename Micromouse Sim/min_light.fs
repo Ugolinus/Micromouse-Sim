@@ -20,7 +20,7 @@ void main() {
     vec3 N = normalize(vNormal);
     vec3 L = normalize(uLightPos - vWorldPos);
 
-    float ambient = 0.5;
+    float ambient = 0.7;
     float diff    = max(dot(N, L), 0.0);
 
     // Distanz skalieren

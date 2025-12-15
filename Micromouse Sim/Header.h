@@ -33,3 +33,8 @@ struct Goal {
 	int pos;
 
 };
+
+const int HEIGHT = 1000;
+const int WIDTH = HEIGHT*1.6;
+const int OFFSET = WIDTH/20;
+const int FONTSIZE = OFFSET/2.5;

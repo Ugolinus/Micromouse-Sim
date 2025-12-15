@@ -5,37 +5,19 @@ Labyrinth::Labyrinth(int size, Shader& sh)
 
 	this->sizeGameField = size;
 
-	/*myLabyrinth = {
+	
 
-	1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1,
-	1,0,1,0,1,1,1,0,1,1,1,0,1,1,0,1,
-	1,0,0,0,0,1,0,0,1,0,0,0,0,1,0,1,
-	1,0,0,1,0,0,0,1,1,0,1,0,1,1,0,1,
-	1,0,1,1,1,0,0,0,0,0,1,1,1,0,0,1,
-	1,0,0,0,0,0,1,1,1,1,1,0,0,0,1,1,
-	1,1,0,1,0,1,1,0,0,1,0,0,1,1,1,1,
-	1,0,0,1,0,0,1,0,0,1,0,0,0,0,0,1,
-	1,1,0,1,1,1,1,0,1,1,0,0,1,0,1,1,
-	1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,
-	1,1,0,1,0,1,0,1,1,1,1,0,1,1,1,1,
-	1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,1,
-	1,0,0,0,0,1,1,0,1,0,1,0,1,1,0,1,
-	1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-	};*/
-
-
-	vector<int> raw = {
+	//Labyrinth klassich
+	/*vector<int> raw = {
 	0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0,
-	1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0,
+	0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0,
+	0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0,
 	0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0,
 	0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0,
 	0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0,
 	0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
-	0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0,
-	0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0,
+	0, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 0, 0, 0, 0,
+	0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 2, 0,
 	0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0,
 	0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0,
 	0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0,
@@ -43,8 +25,38 @@ Labyrinth::Labyrinth(int size, Shader& sh)
 	0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0,
 	0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+	};*/
+
+	//Schöne Fabrik
+	vector<int> raw = {
+	0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0,
+	0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 2, 1, 0,
+	0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0,
+	0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0,
+	0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0,
+	0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0,
+	0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0,
+	0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+	0, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0,
+	0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0,
+	0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0,
+	0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0,
+	0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 0,
+	0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 	};
 
+	//Test mini
+	/*vector<int> raw = {
+	
+	0,0,0,0,
+	0,1,3,0,
+	0,2,1,0,
+	0,0,0,0,
+	
+	};*/
 	
 	for (int v : raw) {
 		this->myLabyrinth.push_back(static_cast<Objekt>(v));
@@ -80,10 +92,15 @@ Labyrinth::Labyrinth(int size, Shader& sh)
 	Image img_ball = GenImageColor(10, 10, GOLD);
 	this->ball_tex = LoadTextureFromImage(img_ball);
 
-	this->ball = LoadModelFromMesh(GenMeshSphere(3.0f*(float)sizeQuadrant/4.0f,20,20));
+	//this->ball = LoadModelFromMesh(GenMeshSphere(2.0f*(float)sizeQuadrant/4.0f,20,20));
+	this->ball = LoadModelFromMesh(GenMeshCone(1.0f * (float)sizeQuadrant / 4.0f, 2, 20));
 	ball.materials[0].maps[MATERIAL_MAP_ALBEDO].texture = ball_tex;
 	ball.materials[0].shader = sh;
 	UnloadImage(img_ball);
+
+	mainGoalViseted = false;
+	subGoalViseted = false;
+
 
 	//Gehirn Map
 	p_brainLabyrinth = 0;
@@ -108,32 +125,51 @@ void Labyrinth::draw(Shader& sh)
 	float off = 0.0f;
 
 	//DrawPlane({}, {(float)sizeGameField,(float)sizeGameField  }, LIGHTGRAY);
-	DrawModel(ground, { 0.0f, 0.0f, 0.0f }, 1.0f, WHITE);
-	DrawModel(ball, { 0.0f, 0.0f, 0.0f }, 1.0f, RAYWHITE);
+	//DrawModel(ground, { 0.0f, 0.0f, 0.0f }, 1.0f, WHITE);
+	//DrawModel(ball, { 0.0f, 0.0f, 0.0f }, 1.0f, RAYWHITE);
 	//DrawSphere({0,sizeQuadrant/2,0 }, (float)sizeQuadrant/2, YELLOW);
 
 	Vector3 pos = { -sizeQuadrant / 2.0f,sizeQuadrant/4.0f,-sizeQuadrant / 2.0f };
 	
 	//Undurchsichtige Objekte zeichnen
 	for (int i = 0; i < myLabyrinth.size(); i++) {
+
+		pos.x = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (i % numberOfFieldsSQR);
+		pos.z = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (i / numberOfFieldsSQR);
+
 		if (myLabyrinth[i] == BLOCK && (*p_brainLabyrinth)[i] == BLOCK) {
-
-
-			pos.x = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (i % numberOfFieldsSQR);
-			pos.z = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (i / numberOfFieldsSQR);
-
 			
 				DrawModel(this->model, pos, 1, { 255,255,255,255 });
 			
 		}
+		else if (myLabyrinth[i] == SUBGOAL) {
+			if (!subGoalViseted)
+				DrawModel(ball, pos, 1.0f, YELLOW);
+			else
+				DrawModel(ball, pos, 1.0f, GREEN);
+			
+		} 
+		else if (myLabyrinth[i] == GOAL) {
+			if(!mainGoalViseted)
+			DrawModel(ball, pos, 2.5f, RED);
+			else
+				DrawModel(ball, pos, 2.5f, GREEN);
+		}
+		else if(myLabyrinth[i] == FREE){
+			//DrawModel(ball, pos, 2.5f, RED);
+			//DrawSpehre(pos, BLACK);
+			DrawSphere({ pos.x,pos.y-0.1f,pos.z }, 0.07, {0,0,0,255});
+		}
 	}
 	//Durchsichtige Objekte zeichnen
 	for (int i = 0; i < myLabyrinth.size(); i++) {
+
+		pos.x = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (i % numberOfFieldsSQR);
+		pos.z = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (i / numberOfFieldsSQR);
+
 		if (myLabyrinth[i] == BLOCK && !(*p_brainLabyrinth)[i] == BLOCK) {
 
 
-			pos.x = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (i % numberOfFieldsSQR);
-			pos.z = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (i / numberOfFieldsSQR);
 
 			DrawModel(this->model, pos, 1, { 255,255,255,40 });
 		}

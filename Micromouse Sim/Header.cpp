@@ -12,8 +12,6 @@ void startRaylib()
 	cout << "\t\tPlease enter window pixel height: ";
 	//cin >> h;
 
-	const int HEIGHT = 2000;
-	const int WIDTH = 3000;
 
 	InitWindow(WIDTH, HEIGHT, "AGV SIMULATOR");
 }

@@ -22,4 +22,8 @@ public:
 	void unload();
 
 	void draw(Shader& sh);
+
+	bool mainGoalViseted;
+	bool subGoalViseted;
+
 };

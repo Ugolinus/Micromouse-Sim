@@ -14,7 +14,9 @@ public:
 		, labyrinth(30, sh)
 		, brain(map,1,DOWN)
 		, mouse(PINK, labyrinth.numberOfFieldsSQR, labyrinth.sizeGameField,
-			labyrinth.sizeQuadrant, labyrinth.myLabyrinth, sh) {
+			labyrinth.sizeQuadrant, labyrinth.myLabyrinth, sh)
+		, myRun(3, OFFSET, HEIGHT/2.0-150, HEIGHT/8,HEIGHT/8, labyrinth.myLabyrinth.size() / 3.0, &arial)
+	{
 
 
 
@@ -23,7 +25,7 @@ public:
 		locLightPos = GetShaderLocation(sh, "uLightPos");
 		locViewPos = GetShaderLocation(sh, "uViewPos");
 		// Startposition des Lichts
-		lightPos = { 0.0f, 20.5f, 0.0f };
+		lightPos = { -3.0f, 20.5f, -3.0f };
 
 		//Zeit Kontrolle
 		interval = 0.0f;
@@ -38,12 +40,6 @@ public:
 		SetTextureFilter(arial.texture, TEXTURE_FILTER_BILINEAR);
 		SetTargetFPS(60);
 
-
-		//Runs
-
-		for (int i = 1; i < 4; i++) {
-			runs.push_back(Run(i,100.0f,500.0f*i,300.0f,300.0f,labyrinth.myLabyrinth.size()/2.0, &arial));
-		}
 
 		//Labyrinth bekommt Gehirn Map, startet mit Free
 
@@ -72,27 +68,23 @@ public:
 
 		updateShaderAndCam();
 		bool noRunRunning = true;
-		for (int i = 0; i < runs.size(); i++) {
-			if (runs[i].running) {
+		
+			if (myRun.running)
 				noRunRunning = false;
-				break;
-			}
-		}
-
-		for (int i = 0; i < runs.size(); i++) {
-			if (!runs[i].activated&&noRunRunning) {
-				runs[i].isClicked();
-			}
-		}
+		
+			if (!myRun.running&&noRunRunning)
+				myRun.isClicked();
+		
 		
 		//AGV macht schritt
-		for (int i = 0; i < runs.size(); i++) {
-			reset();
-			if (runs[i].running) {
-				if (runs[i].stepsLeft == runs[i].stepsAllowed) {
-					mouse.pos = 1;
-					mouse.orientation = DOWN;
-				}
+		
+			if (myRun.stepsLeft == myRun.stepsAllowed) {
+				mouse.pos = 1;
+				mouse.orientation = DOWN;
+			}
+
+			if (myRun.running) {
+				
 				//Zeitsteuerung
 				float t = GetTime();
 
@@ -103,18 +95,34 @@ public:
 					while (!mouse.makeMove(brain.makeMove())) {
 						
 					}
-					for (int i = 0; i < runs.size(); i++) {
-						if (runs[i].running) {
+					
+						if (myRun.running) {
 							//Brain gets new sensor Data
 							brain.sensorInformation = mouse.getSensorData();
-							runs[i].update();
-							break;
+
+							if (labyrinth.myLabyrinth[mouse.pos] == SUBGOAL) {
+								myRun.gotPackage = true;
+								
+									
+							}
+							if (labyrinth.myLabyrinth[mouse.pos] == GOAL && myRun.gotPackage) {
+								myRun.deliveredPackage = true;
+								if(myRun.shortestPath==-1||myRun.shortestPath>= myRun.stepsAllowed - myRun.stepsLeft)
+									myRun.shortestPath = myRun.stepsAllowed - myRun.stepsLeft;
+								
+							}
+
+							labyrinth.subGoalViseted = myRun.gotPackage;
+							labyrinth.mainGoalViseted = myRun.deliveredPackage;
+
+							myRun.update();
+							
 						}
-					}
+					
 					lastCall = t;
 				}
 			}
-		}
+		
 
 	}
 
@@ -134,34 +142,28 @@ public:
 		EndMode3D();
 
 		//Logo und Titel
-		DrawTextEx(arial, "EII Projektaufgabe - Version 0.1", { (float)WIDTH-400,(float)HEIGHT - 30}, FONTSIZE / 2.0f, 1, BLACK);
+		DrawTextEx(arial, "EII Projektaufgabe - Version 0.9", { (float)WIDTH-400,(float)HEIGHT - 30}, FONTSIZE / 2.0f, 1, BLACK);
 		DrawTextEx(arial, "AGV Simulator", { (float)tu_logo.width + iit_logo.width + 30,(float)tu_logo.height / 2 - 20 }, FONTSIZE, 5, BLACK);
 		DrawTexture(tu_logo, 0, 0, WHITE);
 		DrawTexture(iit_logo, tu_logo.width, 30, WHITE);
-		/*DrawText("Micro Mouse Simulator", (WIDT
-		H - MeasureText("Micro Mouse Simulator", FONTSIZE)) / 2.0f, OFFSET , FONTSIZE, LIGHTGRAY);
-		DrawLineEx({ 0, HEIGHT - 2*OFFSET }, { WIDTH, HEIGHT - 2 * OFFSET },5, LIGHTGRAY);
-
-
-		for (int i = 0; i < 5; i++) {
-
-			DrawCircle(WIDTH / 10.0f + (i) * (WIDTH / (5.0f)), HEIGHT - 1.2f * OFFSET, FONTSIZE, LIGHTGRAY);
-			DrawCircle(WIDTH / 10.0f + (i) * (WIDTH / (5.0f)), HEIGHT - 1.2f * OFFSET, FONTSIZE/1.3f, BLACK);
-			DrawText(to_string(i + 1).c_str(), WIDTH / 10.0f + (i) * (WIDTH / (5.0f))-MeasureText(to_string(i + 1).c_str(), FONTSIZE)/2.0f, HEIGHT - 1.2f * OFFSET-FONTSIZE/2.0f, FONTSIZE, LIGHTGRAY);
-			DrawRectangle(WIDTH / 10.0f + (i) * (WIDTH / (5.0f))- OFFSET, HEIGHT - 0.8f * OFFSET,2*OFFSET,OFFSET/5.0f,LIGHTGRAY);
-			DrawRectangle(WIDTH / 10.0f + (i) * (WIDTH / (5.0f)) - OFFSET*0.95f, HEIGHT - 0.75f * OFFSET, 2 * OFFSET*0.95f, (OFFSET / 5.0f) * 0.475f, BLACK);
-		}*/
+		
 
 		//Runs
-		for (int i = 0; i < runs.size(); i++) {
-			runs[i].draw();
-		}
+		
+			myRun.draw();
+	
 
 		//drawBrainInformation();
 
 		EndDrawing();
 	}
 
+	void checkifReachedGoal(){
+
+		
+		if (labyrinth.myLabyrinth[mouse.pos] == SUBGOAL);
+
+	}
 
 	void run() {
 		while (!WindowShouldClose()) {
@@ -179,21 +181,7 @@ public:
 	}
 
 	bool reset() {
-		for (int i = 0; i < runs.size(); i++) {
-			if (!runs[i].activated || runs[i].running) {
-				return false;
-			}
-		}
-
-		runs.clear();
-
-		for (int i = 1; i < 4; i++) {
-			runs.push_back(Run(i, 100.0f, 500.0f * i, 300.0f, 300.0f, 30, &arial));
-		}
-
-		//labyrinth=Labyrinth(30, sh,);
-		//mouse=AGV(PINK, labyrinth.numberOfFieldsSQR, labyrinth.sizeGameField,
-		//labyrinth.sizeQuadrant, labyrinth.myLabyrinth, sh);
+		
 
 		return true;
 	}
@@ -221,10 +209,10 @@ private:
 	float interval = 0.5f;
 	float lastCall = 0.0;
 
-	const int HEIGHT = 2000;
-	const int WIDTH = 3000;
-	const int OFFSET = 150;
-	const int FONTSIZE = 50;
+	const int HEIGHT = ::HEIGHT;
+	const int WIDTH = ::WIDTH;
+	const int OFFSET = ::OFFSET;
+	const int FONTSIZE = ::FONTSIZE;
 
 	Texture2D  tu_logo;
 	Texture2D  iit_logo;
@@ -235,7 +223,7 @@ private:
 	//Objekte der Simulation
 	Labyrinth labyrinth;
 	AGV mouse;
-	vector<Run> runs;
+	Run myRun;
 	AGVBrain brain;
 
 	vector<Objekt> map;

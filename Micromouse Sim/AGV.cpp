@@ -115,7 +115,7 @@ bool AGV::makeMove(Direction dir)
 
     switch (dir) {
     case RIGHT: // rechts
-        if (col < numberOfFieldsSQR - 1&& (myLabyrinth)[pos+1]==FREE) { // nicht am rechten Rand
+        if (col < numberOfFieldsSQR - 1&& (myLabyrinth)[pos+1]!=BLOCK) { // nicht am rechten Rand
             pos++;
             orientation = RIGHT;
             return true;
@@ -123,7 +123,7 @@ bool AGV::makeMove(Direction dir)
         break;
 
     case LEFT: // links
-        if (col > 0 && (myLabyrinth)[pos - 1] == FREE) { // nicht am linken Rand
+        if (col > 0 && (myLabyrinth)[pos - 1] != BLOCK) { // nicht am linken Rand
             pos--;
             orientation = LEFT;
             return true;
@@ -131,7 +131,7 @@ bool AGV::makeMove(Direction dir)
         break;
 
     case DOWN: // runter
-        if (row < numberOfFieldsSQR - 1 && (myLabyrinth)[pos + numberOfFieldsSQR] == FREE) { // nicht in der letzten Reihe
+        if (row < numberOfFieldsSQR - 1 && (myLabyrinth)[pos + numberOfFieldsSQR] != BLOCK) { // nicht in der letzten Reihe
             pos += numberOfFieldsSQR;
             orientation = DOWN;
             return true;
@@ -139,7 +139,7 @@ bool AGV::makeMove(Direction dir)
         break;
 
     case UP: // hoch
-        if (row > 0 && (myLabyrinth)[pos - numberOfFieldsSQR] == FREE) { // nicht in der ersten Reihe
+        if (row > 0 && (myLabyrinth)[pos - numberOfFieldsSQR] != BLOCK) { // nicht in der ersten Reihe
             pos -= numberOfFieldsSQR;
             orientation = UP;
             return true;

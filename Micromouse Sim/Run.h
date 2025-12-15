@@ -8,7 +8,10 @@ private:
 	
 	
 	
-	int id;
+	int trysLeft;
+	int trys;
+
+	
 
 	//Interface
 	Vector2 pos;
@@ -24,11 +27,11 @@ public:
 	int stepsAllowed;
 	int stepsLeft;
 	bool running;
-	bool activated;
+	//bool activated;
 
 	void draw();
 
-	Run(int id, float posX, float posY, float height, float width, int steps, Font* p_arial);
+	Run(int trys, float posX, float posY, float height, float width, int steps, Font* p_arial);
 
 	void isClicked();
 
@@ -37,6 +40,16 @@ public:
 	void drawStepsCounter();
 
 	void drawTextExCenteredInBox(const std::string& text, float fontSize, float spacing, Color col);
+
+	void drawShortestPath();
+
+	void reset();
 	
+	bool gotPackage;
+
+	bool deliveredPackage;
+
+	int shortestPath;
+
 
 };
