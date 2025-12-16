@@ -184,7 +184,7 @@ void Labyrinth::draw(Shader& sh)
 
 
 
-			DrawModel(this->model, pos, 1, { 255,255,255,10 });
+			DrawModel(this->model, pos, 1, { 255,255,255,40 });
 		}
 	}
 

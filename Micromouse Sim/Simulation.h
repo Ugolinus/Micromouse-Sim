@@ -10,7 +10,7 @@
 
 class Simulation {
 public:
-	Simulation() : sh(LoadShader("min_light.vs", "min_light.fs"))
+	Simulation() : sh(LoadShader("Assets/min_light.vs", "Assets/min_light.fs"))
 		, labyrinth(30, sh)
 		, brain(labyrinth.brainLabyrinth,1,DOWN)
 		, mouse(PINK, labyrinth.numberOfFieldsSQR, labyrinth.sizeGameField,
@@ -32,9 +32,9 @@ public:
 		lastCall = 0.0;
 
 		//Laden von Assets
-		tu_logo = LoadTexture("TU_Logo.png");
-		iit_logo = LoadTexture("IIT_Logo.png");
-		arial = LoadFontEx("arial.ttf", 150, 0, 0);
+		tu_logo = LoadTexture("Assets/TU_Logo.png");
+		iit_logo = LoadTexture("Assets/IIT_Logo.png");
+		arial = LoadFontEx("Assets/arial.ttf", 150, 0, 0);
 
 		//Einstellungen des Fensters
 		SetTextureFilter(arial.texture, TEXTURE_FILTER_BILINEAR);
@@ -149,7 +149,7 @@ public:
 		EndMode3D();
 
 		//Logo und Titel
-		DrawTextEx(arial, "EII Projektaufgabe - Version 0.9", { (float)WIDTH-400,(float)HEIGHT - 30}, FONTSIZE / 2.0f, 1, BLACK);
+		DrawTextEx(arial, "EII Projektaufgabe - Version 0.9", { (float)WIDTH-MeasureTextEx(arial,"EII Projektaufgabe - Version 0.9",FONTSIZE /2.0f,1).x-10,(float)HEIGHT - MeasureTextEx(arial,"EII Projektaufgabe - Version 0.9",FONTSIZE / 2.0f,1).y-10 }, FONTSIZE / 2.0f, 1, BLACK);
 		DrawTextEx(arial, "AGV Simulator", { (float)tu_logo.width + iit_logo.width + 30,(float)tu_logo.height / 2 - 20 }, FONTSIZE, 5, BLACK);
 		DrawTexture(tu_logo, 0, 0, WHITE);
 		DrawTexture(iit_logo, tu_logo.width, 30, WHITE);

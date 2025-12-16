@@ -24,6 +24,7 @@
     <ProjectGuid>{1a40a984-3caf-4927-a25b-7c3f08034291}</ProjectGuid>
     <RootNamespace>MicromouseSim</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>AGV Sim</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
