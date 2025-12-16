@@ -15,7 +15,7 @@ public:
 		, brain(labyrinth.brainLabyrinth,1,DOWN)
 		, mouse(PINK, labyrinth.numberOfFieldsSQR, labyrinth.sizeGameField,
 			labyrinth.sizeQuadrant, labyrinth.myLabyrinth, sh)
-		, myRun(3, OFFSET, HEIGHT/2.0-150, HEIGHT/8,HEIGHT/8, labyrinth.myLabyrinth.size() / 1.0, &arial)
+		, myRun(3, OFFSET, HEIGHT/2.0-150, HEIGHT/8,HEIGHT/8, labyrinth.myLabyrinth.size() / 4.0, &arial)
 	{
 
 
@@ -43,6 +43,8 @@ public:
 
 		//Labyrinth bekommt Gehirn Map, startet mit Free
 		labyrinth.p_brainLabyrinth = &brain.brainLabyrinth;
+		labyrinth.p_wayValue = &brain.wayValueMatrix;
+		labyrinth.showWayValues = brain.showWayValues;
 	
 	}
 
@@ -99,9 +101,9 @@ public:
 						
 					}
 					
-					cout << "\n------------------------\n\n";
+					/*cout << "\n------------------------\n\n";
 					cout << "Real pos: " << mouse.pos<<endl;
-					cout << "Brain pos: " << brain.pos<<endl<<endl;
+					cout << "Brain pos: " << brain.pos<<endl<<endl;*/
 
 
 						if (myRun.running) {
@@ -141,15 +143,17 @@ public:
 		//DrawGrid(4, 10);
 
 		ClearBackground(WHITE);
-
+		
 		mouse.draw(sh);
 		labyrinth.draw(sh);
-		
+		//Falsche Position zeichnen
+		if (brain.pos != mouse.pos)
+			mouse.drawWrong(sh, brain.pos);
 
 		EndMode3D();
 
 		//Logo und Titel
-		DrawTextEx(arial, "EII Projektaufgabe - Version 0.9", { (float)WIDTH-MeasureTextEx(arial,"EII Projektaufgabe - Version 0.9",FONTSIZE /2.0f,1).x-10,(float)HEIGHT - MeasureTextEx(arial,"EII Projektaufgabe - Version 0.9",FONTSIZE / 2.0f,1).y-10 }, FONTSIZE / 2.0f, 1, BLACK);
+		DrawTextEx(arial, "EII Projektaufgabe - Version 0.9", { (float)WIDTH-MeasureTextEx(arial,"EII Projektaufgabe - Version 1.0",FONTSIZE /2.0f,1).x-10,(float)HEIGHT - MeasureTextEx(arial,"EII Projektaufgabe - Version 0.9",FONTSIZE / 2.0f,1).y-10 }, FONTSIZE / 2.0f, 1, BLACK);
 		DrawTextEx(arial, "AGV Simulator", { (float)tu_logo.width + iit_logo.width + 30,(float)tu_logo.height / 2 - 20 }, FONTSIZE, 5, BLACK);
 		DrawTexture(tu_logo, 0, 0, WHITE);
 		DrawTexture(iit_logo, tu_logo.width, 30, WHITE);
@@ -187,11 +191,6 @@ public:
 		end();
 	}
 
-	bool reset() {
-		
-
-		return true;
-	}
 
 	void updateShaderAndCam() {
 		//Kamera

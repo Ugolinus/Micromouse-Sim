@@ -12,6 +12,7 @@ public:
 	Vector3 posOnScreen;
 	Vector3 posVec;
 	Vector3 nowPos;
+	Vector3 nowPosWrong;
 	AGV(Color col, int numberOfFieldsSQR, int sizeGameField, float sizeQuadrant, vector<Objekt>& myLabyrinth, Shader& sh);
 
 	Direction AGVBrain();
@@ -27,5 +28,9 @@ public:
 
 	void draw(Shader& sh);
 
+	void drawWrong(Shader& sh, int pos);
+
 	void unload();
+
+	
 };

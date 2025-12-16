@@ -90,10 +90,10 @@ Labyrinth::Labyrinth(int size, Shader& sh)
 	this->model.materials[0].shader = sh;
 
 	//Floor
-	Image img_ground = GenImageColor(10, 10, GRAY);
+	Image img_ground = GenImageColor(10, 10, WHITE);
 	this->tex_floor = LoadTextureFromImage(img_ground);
 
-	this->ground = LoadModelFromMesh(GenMeshPlane(sizeGameField, sizeGameField, 200, 200));
+	this->ground = LoadModelFromMesh(GenMeshPlane(sizeQuadrant, sizeQuadrant, 30, 30));
 	ground.materials[0].maps[MATERIAL_MAP_ALBEDO].texture = tex_floor;
 	ground.materials[0].shader = sh;
 	UnloadImage(img_ground);
@@ -134,10 +134,6 @@ void Labyrinth::draw(Shader& sh)
 	// Normale Flächen
 	float off = 0.0f;
 
-	//DrawPlane({}, {(float)sizeGameField,(float)sizeGameField  }, LIGHTGRAY);
-	//DrawModel(ground, { 0.0f, 0.0f, 0.0f }, 1.0f, WHITE);
-	//DrawModel(ball, { 0.0f, 0.0f, 0.0f }, 1.0f, RAYWHITE);
-	//DrawSphere({0,sizeQuadrant/2,0 }, (float)sizeQuadrant/2, YELLOW);
 
 	Vector3 pos = { -sizeQuadrant / 2.0f,sizeQuadrant/4.0f,-sizeQuadrant / 2.0f };
 	
@@ -175,6 +171,11 @@ void Labyrinth::draw(Shader& sh)
 		}
 	}
 	//Durchsichtige Objekte zeichnen
+
+	if (showWayValues) {
+		drawWayValues();
+	}
+
 	for (int i = 0; i < myLabyrinth.size(); i++) {
 
 		pos.x = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (i % numberOfFieldsSQR);
@@ -188,6 +189,26 @@ void Labyrinth::draw(Shader& sh)
 		}
 	}
 
+	
+
 
 
 }
+
+void Labyrinth::drawWayValues()
+{
+
+	Vector3 pos = { -sizeQuadrant / 2.0f,0,-sizeQuadrant / 2.0f };
+
+	for (int i = 0; i < myLabyrinth.size(); i++) {
+
+		pos.x = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (i % numberOfFieldsSQR);
+		pos.z = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (i / numberOfFieldsSQR);
+
+		if ((*p_wayValue)[i] >= 0&& (*p_wayValue)[i]<9999) {
+
+				DrawModel(this->ground, pos, 1, { (unsigned char)((int)255 - 8 * (*p_wayValue)[i]),0,(unsigned char)((int)0 + 8 * (*p_wayValue)[i]),100 });
+		}
+	}
+}
+

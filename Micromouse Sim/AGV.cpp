@@ -19,7 +19,7 @@ AGV::AGV(Color col, int numberOfFieldsSQR, int sizeGameField, float sizeQuadrant
     posVec.z = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (pos / numberOfFieldsSQR);
 
     nowPos = posVec;
-
+    nowPosWrong = posVec;
 
     this->model = LoadModelFromMesh(GenMeshSphere((float)sizeQuadrant / 3.0f, 20, 20));
 
@@ -37,7 +37,7 @@ Direction AGV::AGVBrain()
     Direction direction;
     
     direction = (Direction)GetRandomValue(-2, 2);
-   cout <<"Student: "<< direction << endl;
+  // cout <<"Student: "<< direction << endl;
    return direction;
  
 }
@@ -160,6 +160,8 @@ bool AGV::makeMove(Direction dir)
 
 void AGV::draw(Shader& sh)
 {
+ 
+   
     //Soll Position wird gesetzt
     posVec = { 0,sizeQuadrant / 2.0f,0 };
     posVec.x = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (pos % numberOfFieldsSQR);
@@ -197,8 +199,49 @@ void AGV::draw(Shader& sh)
 }
 
 
+void AGV::drawWrong(Shader& sh, int pos)
+{
+    //Soll Position wird gesetzt
+    Vector3 posVecW = { 0,sizeQuadrant / 2.0f,0 };
+    posVecW.x = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (pos % numberOfFieldsSQR);
+    posVecW.z = (-numberOfFieldsSQR + 1) / 2.0f * sizeQuadrant + sizeQuadrant * (pos / numberOfFieldsSQR);
+
+
+    float dt = GetFrameTime();
+    float speed = 3.0f; // Einheiten pro Sekunde (anpassen)
+
+    // nur XZ bewegen
+    Vector3 target = posVecW;
+    target.y = nowPosWrong.y;
+
+    Vector3 delta = Vector3Subtract(target, nowPosWrong);
+    float dist = Vector3Length(delta);
+
+    if (dist > 0.0001f)
+    {
+        float step = speed * dt;
+
+        if (step >= dist)
+        {
+            nowPosWrong = target;
+        }
+        else
+        {
+            Vector3 dir = Vector3Scale(delta, 1.0f / dist);
+            nowPosWrong = Vector3Add(nowPosWrong, Vector3Scale(dir, step));
+        }
+    }
+
+
+    //DrawSphere(nowPos, sizeQuadrant/2.5f, col);
+    DrawModel(model, nowPosWrong, 1.0f, {255,255,255,60});
+}
+
+
 void AGV::unload()
 {
     UnloadModel(model);
     UnloadTexture(tex);
 }
+
+

@@ -39,7 +39,7 @@ void Run::draw()
 	DrawCircle((box.x + box.width * 0.5f),
 		(box.y + box.height * 0.5f),
 		box.width *0.9,
-		BLACK);
+		{ 0,0,0,255 });
 
 	// innerer Kreis (etwas kleiner)
 	DrawCircle((box.x + box.width * 0.5f),

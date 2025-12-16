@@ -6,6 +6,7 @@ public:
 	vector<Objekt> myLabyrinth;
 	vector<Objekt>* p_brainLabyrinth;
 	vector<Objekt> brainLabyrinth;
+	vector<int>* p_wayValue;
 	Labyrinth(int size, Shader& sh);
 
 	int numberOfFieldsSQR;
@@ -26,5 +27,8 @@ public:
 
 	bool mainGoalViseted;
 	bool subGoalViseted;
+
+	bool showWayValues;
+	void drawWayValues();
 
 };

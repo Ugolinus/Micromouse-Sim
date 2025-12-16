@@ -14,8 +14,8 @@ void startRaylib()
 	system("cls");
 	cout << "\nAGV SIMULATOR \nTU BERLIN\n\nIndustrielle Informationstechnik - Einfuhrung in die Informationstechnik fur Ingenieur:innen\n";
 	
-	cout << "\nPlease enter window pixel height:\n";
-	int h;
+	/*cout << "\nPlease enter window pixel height:\n";
+	int h;*/
 	/*while (true) {
 		if (std::cin >> h && h > 0) {
 			HEIGHT = h;
